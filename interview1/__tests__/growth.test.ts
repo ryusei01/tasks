@@ -1,3 +1,4 @@
+import { duePreset, tasksForToday } from '../src/domain/tasks';
 import { atLocal } from '../src/domain/time';
 import { applyCook, canCook, RECIPES } from '../src/domain/cooking';
 import { assuresSurvival, linesFor, pickLine, SOFT_BANNED } from '../src/domain/dialogue';
@@ -26,6 +27,25 @@ function task(partial: Partial<Task> & { id: string }): Task {
     ...partial,
   };
 }
+
+describe('今日の一覧', () => {
+  test('21時を過ぎた「今日の夜」はその日の終わりに残り、追加したタスクは今日に出る', () => {
+    const now = atLocal(2026, 10, 20, 23, 40);
+    const due = duePreset('tonight', now);
+    expect(due).not.toBeNull();
+    const dueDate = new Date(due!);
+    expect(dueDate.getDate()).toBe(20);
+    expect(dueDate.getHours()).toBe(23);
+
+    const added = task({
+      id: 'new',
+      createdAt: now,
+      dueAt: due,
+      status: 'open',
+    });
+    expect(tasksForToday([added], now).map((item) => item.id)).toEqual(['new']);
+  });
+});
 
 describe('時間の判定', () => {
   const due = atLocal(2026, 10, 18, 18, 0);

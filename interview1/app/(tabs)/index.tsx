@@ -108,7 +108,12 @@ export default function TodayScreen() {
         {visible.map((task) => {
           const overdue = task.dueAt != null && task.dueAt < now && task.status !== 'done' && dateKey(task.dueAt) !== signals.todayKey;
           return (
-            <Pressable key={task.id} style={screen.task} onPress={() => router.push({ pathname: '/task/[id]', params: { id: task.id } })}>
+            <Pressable
+              key={task.id}
+              accessibilityRole="button"
+              style={screen.task}
+              onPress={() => router.push({ pathname: '/task/[id]', params: { id: task.id } })}
+            >
               <Text style={screen.body}>{task.title}</Text>
               <Text style={screen.muted}>
                 {CATEGORY_LABEL[task.category]}　{DIFFICULTY_LABEL[task.difficulty]}　{STATUS_LABEL[task.status]}

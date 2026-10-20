@@ -6,7 +6,7 @@ export function duePreset(kind: 'none' | 'tonight' | 'tomorrow' | 'later', now: 
   const date = new Date(now);
   if (kind === 'tonight') {
     date.setHours(21, 0, 0, 0);
-    if (date.getTime() <= now) date.setDate(date.getDate() + 1);
+    if (date.getTime() <= now) date.setHours(23, 59, 0, 0);
     return date.getTime();
   }
   date.setDate(date.getDate() + (kind === 'tomorrow' ? 1 : 3));
@@ -22,8 +22,9 @@ export function tasksForToday(tasks: Task[], now: number): Task[] {
       const doneToday = task.completedAt != null && dateKey(task.completedAt) === today;
       const open = task.status === 'open' || task.status === 'started';
       const undatedOpen = open && task.dueAt == null;
+      const createdToday = open && dateKey(task.createdAt) === today;
       const overdue = open && task.dueAt != null && task.dueAt < now && dateKey(task.dueAt) !== today;
-      return dueToday || doneToday || undatedOpen || overdue;
+      return dueToday || doneToday || undatedOpen || createdToday || overdue;
     })
     .sort((a, b) => (a.dueAt ?? Number.MAX_SAFE_INTEGER) - (b.dueAt ?? Number.MAX_SAFE_INTEGER));
 }

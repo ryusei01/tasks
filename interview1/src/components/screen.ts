@@ -3,7 +3,7 @@ import { colors } from '../theme';
 
 export const screen = StyleSheet.create({
   page: { flex: 1, backgroundColor: colors.paper },
-  scroll: { padding: 20, gap: 16, paddingBottom: 48, alignItems: 'center' },
+  scroll: { padding: 20, gap: 16, paddingBottom: 120, alignItems: 'center' },
   column: { width: '100%', maxWidth: 560, gap: 16 },
   title: { fontSize: 32, color: colors.ink, fontWeight: '600' },
   sub: { color: colors.inkSoft, fontSize: 14, lineHeight: 21 },

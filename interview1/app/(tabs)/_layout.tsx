@@ -8,6 +8,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.mossDeep,
         tabBarInactiveTintColor: colors.inkSoft,
+        tabBarIcon: () => null,
         tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.line },
       }}
     >
