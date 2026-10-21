@@ -11,20 +11,20 @@ export const MINIGAMES: readonly MinigameDef[] = [
   {
     id: 'water',
     name: '水やり',
-    blurb: '葉を八回、やさしく叩く。',
-    unlockText: 'タスクを1つ終えると遊べる。',
+    blurb: '葉を八回叩く。葉が「そこ、くすぐったい」と言う。',
+    unlockText: 'タスクを1つ終えると、葉が遊びに付き合う。',
   },
   {
     id: 'harvest',
     name: '収穫あそび',
-    blurb: '落ちてくる実を六つ拾う。',
-    unlockText: 'タスクを3つ終えると遊べる。',
+    blurb: '落ちてくる実を六つ拾う。実は逃げ腰。',
+    unlockText: 'タスクを3つ終えると、実が落ちてくる。',
   },
   {
     id: 'bounce',
     name: 'スライムバウンド',
-    blurb: 'スライムを十回はずませる。',
-    unlockText: '連続2日、または5つ終えると遊べる。',
+    blurb: 'スライムを十回はずませる。床がかわいそう。',
+    unlockText: '連続2日、または5つ終えると、スライムが床を見る。',
   },
 ];
 

@@ -8,7 +8,7 @@ import { CATEGORY_LABEL, DIFFICULTY_LABEL, STATUS_LABEL } from '../../src/domain
 import { plantView } from '../../src/domain/plant';
 import { companionAction } from '../../src/domain/companion';
 import { computeSignals } from '../../src/domain/signals';
-import { slimeFromSignals } from '../../src/domain/slime';
+import { slimeFromSignals, slimeGrowthLine } from '../../src/domain/slime';
 import { completionCount, duePreset, latestDifficulty, tasksForToday } from '../../src/domain/tasks';
 import { dateKey, formatWhen } from '../../src/domain/time';
 import { CATEGORIES, DIFFICULTIES, type Category, type Difficulty } from '../../src/domain/types';
@@ -52,13 +52,14 @@ export default function TodayScreen() {
     <ScrollView contentContainerStyle={screen.scroll}>
       <View style={screen.column}>
         <Text style={screen.title}>はなこと</Text>
-        <Text style={screen.sub}>取り組むと、花と相棒と島が変わる。終わらなくても、枯れない。</Text>
+        <Text style={screen.sub}>取り組むと、花も相棒も変な育ち方をする。終わらなくても、枯れない。</Text>
         <Speech text={speech} />
         <FlowerSprite plant={plant} width={220} />
         <RateGauge rate={signals.todayRate} />
         <Text style={screen.muted}>
-          連続 {signals.streak}日　完了 {completionCount(tasks)}　性格は庭で育つ
+          連続 {signals.streak}日　完了 {completionCount(tasks)}　性格は庭で変になる
         </Text>
+        <Text style={screen.muted}>{slimeGrowthLine(signals)}</Text>
         <View style={screen.row}>
           <Button label={showCard ? 'カードを閉じる' : '共有カード'} onPress={() => setShowCard((value) => !value)} tone="ghost" />
           {showCard ? <Button label="X / Instagram へ" onPress={() => void share()} /> : null}
@@ -104,7 +105,7 @@ export default function TodayScreen() {
         />
 
         <Text style={screen.h2}>今日</Text>
-        {visible.length === 0 ? <Text style={screen.sub}>今日のタスクはまだない。一つ置くと庭が動く。</Text> : null}
+        {visible.length === 0 ? <Text style={screen.sub}>今日のタスクはまだない。一つ置くと、庭がびっくりして動く。</Text> : null}
         {visible.map((task) => {
           const overdue = task.dueAt != null && task.dueAt < now && task.status !== 'done' && dateKey(task.dueAt) !== signals.todayKey;
           return (
@@ -119,7 +120,7 @@ export default function TodayScreen() {
                 {CATEGORY_LABEL[task.category]}　{DIFFICULTY_LABEL[task.difficulty]}　{STATUS_LABEL[task.status]}
                 {task.dueAt ? `　${formatWhen(task.dueAt)}` : ''}
               </Text>
-              {overdue ? <Text style={screen.muted}>期限を過ぎている。休んでも枯れない。</Text> : null}
+              {overdue ? <Text style={screen.muted}>期限を過ぎてる。休んでも枯れない。株は待ってるふり。</Text> : null}
             </Pressable>
           );
         })}

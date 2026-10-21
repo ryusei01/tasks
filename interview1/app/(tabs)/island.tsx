@@ -21,7 +21,7 @@ export default function IslandScreen() {
     <ScrollView contentContainerStyle={screen.scroll}>
       <View style={screen.column}>
         <Text style={screen.title}>島</Text>
-        <Text style={screen.sub}>タスクの区分が、森や図書館や道になる。少し触れるだけでも、土地は目を覚ます。</Text>
+        <Text style={screen.sub}>運動で森、勉強で図書館、家事で道。土地が、やったことの形で調子に乗る。</Text>
         <IslandSvg world={world} width={340} />
         {rows.map((row) => (
           <View key={row.key} style={screen.task}>

@@ -11,11 +11,11 @@ export function personality(signals: Signals): Personality {
   const particular = clamp(signals.categoryPoints.creative * 4 + signals.categoryPoints.work * 3);
   const clingy = clamp(signals.streak * 15 + signals.grownBlooms * 8);
   const axes = [
-    ['まじめ', earnest],
-    ['げんき', lively],
-    ['おっとり', gentle],
-    ['こだわり', particular],
-    ['甘えんぼ', clingy],
+    ['期限マニア', earnest],
+    ['跳ね担当', lively],
+    ['寝落ち係', gentle],
+    ['味見係', particular],
+    ['くっつき虫', clingy],
   ] as const;
   const top = [...axes].sort((a, b) => b[1] - a[1])[0];
   return {
@@ -24,7 +24,7 @@ export function personality(signals: Signals): Personality {
     gentle,
     particular,
     clingy,
-    label: top[1] < 15 ? '様子を見ている' : top[0],
+    label: top[1] < 15 ? 'まだ他人のふり' : top[0],
   };
 }
 

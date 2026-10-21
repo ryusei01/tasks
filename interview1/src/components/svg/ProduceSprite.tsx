@@ -10,27 +10,7 @@ export function ProduceSprite({ view, width = 92 }: { view: ProduceView; width?:
     <Svg width={width} height={width * 1.15} viewBox="0 0 100 120">
       <Ellipse cx="50" cy="108" rx="28" ry="7" fill="#e4d5ba" />
       <ProduceBody kind={view.kind} scale={scale} tilt={tilt} />
-      {view.mood === 'sulk' ? (
-        <>
-          <Path d="M38 42 l10 4" stroke="#243027" strokeWidth="2" />
-          <Path d="M62 42 l-10 4" stroke="#243027" strokeWidth="2" />
-        </>
-      ) : (
-        <>
-          <Circle cx="42" cy={faceY} r="2.2" fill="#243027" />
-          <Circle cx="58" cy={faceY} r="2.2" fill="#243027" />
-        </>
-      )}
-      <Path
-        d={view.mood === 'sulk' || view.mood === 'rest' ? 'M42 64 q8 2 16 0' : 'M42 62 q8 8 16 0'}
-        stroke="#243027"
-        strokeWidth="2"
-        fill="none"
-      />
-      {view.mood === 'sweat' ? <Ellipse cx="70" cy="36" rx="4" ry="6" fill="#9fd4ea" /> : null}
-      {view.mood === 'rest' ? (
-        <Path d="M66 30 h10 M66 36 h8" stroke="#5c6b5e" strokeWidth="2" />
-      ) : null}
+      <ProduceFace view={view} faceY={faceY} />
     </Svg>
   );
 }
@@ -60,6 +40,63 @@ function ProduceBody({ kind, scale, tilt }: { kind: ProduceView['kind']; scale: 
     <>
       <Ellipse cx="50" cy="58" rx="30" ry="18" fill="#c96b4a" transform={transform} />
       <Rect x="44" y="64" width="12" height="26" rx="6" fill="#f3e2c8" transform={transform} />
+    </>
+  );
+}
+
+function ProduceFace({ view, faceY }: { view: ProduceView; faceY: number }) {
+  if (view.mood === 'sulk') {
+    return (
+      <>
+        <Path d="M36 40 l12 5" stroke="#243027" strokeWidth="2" />
+        <Path d="M64 40 l-12 5" stroke="#243027" strokeWidth="2" />
+        <Path d="M40 66 q10 -2 20 0" stroke="#243027" strokeWidth="2" fill="none" />
+      </>
+    );
+  }
+  if (view.mood === 'rest') {
+    return (
+      <>
+        <Path d={`M38 ${faceY} q6 4 10 0`} stroke="#243027" strokeWidth="2" fill="none" />
+        <Path d={`M52 ${faceY} q6 4 10 0`} stroke="#243027" strokeWidth="2" fill="none" />
+        <Path d="M42 66 q8 1 16 0" stroke="#243027" strokeWidth="2" fill="none" />
+        <Path d="M66 28 h12 M66 34 h8" stroke="#5c6b5e" strokeWidth="2" />
+      </>
+    );
+  }
+  if (view.mood === 'sweat') {
+    return (
+      <>
+        <Circle cx="42" cy={faceY} r="2.4" fill="#243027" />
+        <Circle cx="58" cy={faceY} r="2.4" fill="#243027" />
+        <Path d="M40 64 q10 2 22 -4" stroke="#243027" strokeWidth="2" fill="none" />
+        <Ellipse cx="74" cy="32" rx="5" ry="8" fill="#9fd4ea" />
+        <Ellipse cx="78" cy="48" rx="3" ry="5" fill="#9fd4ea" />
+      </>
+    );
+  }
+  if (view.mood === 'dance') {
+    return (
+      <>
+        <Path d={`M36 ${faceY} q6 -6 10 0`} stroke="#243027" strokeWidth="2" fill="none" />
+        <Path d={`M54 ${faceY} q6 -6 10 0`} stroke="#243027" strokeWidth="2" fill="none" />
+        <Path d="M38 62 q12 12 24 0" stroke="#243027" strokeWidth="2" fill="none" />
+        <Circle cx="34" cy={faceY + 8} r="3" fill="#f0b0a8" />
+        <Circle cx="66" cy={faceY + 8} r="3" fill="#f0b0a8" />
+        <Path d="M24 58 l-8 -10 M76 58 l8 -10" stroke="#e25b6a" strokeWidth="2" />
+      </>
+    );
+  }
+  return (
+    <>
+      <Circle cx="42" cy={faceY} r="2.2" fill="#243027" />
+      <Circle cx="58" cy={faceY} r="2.2" fill="#243027" />
+      <Path
+        d={view.mood === 'happy' ? 'M40 62 q10 10 20 0' : 'M44 64 q6 3 12 0'}
+        stroke="#243027"
+        strokeWidth="2"
+        fill="none"
+      />
     </>
   );
 }

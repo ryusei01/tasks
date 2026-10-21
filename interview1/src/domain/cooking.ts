@@ -10,37 +10,37 @@ export const RECIPES: readonly Recipe[] = [
     id: 'salad',
     name: '朝のサラダ',
     needs: { tomato: 1, strawberry: 1 },
-    line: 'すっぱい。相棒が目を細めた。',
+    line: 'すっぱい。相棒が「朝からこれ？」と目を細めて、それでも皿を空けた。',
   },
   {
     id: 'stew',
     name: 'きのこの煮込み',
     needs: { tomato: 1, mushroom: 1 },
-    line: 'あたたかい。一緒に休む顔になった。',
+    line: 'あたたかい。相棒がスプーンを置いて、一緒にとろけた。',
   },
   {
     id: 'jam',
     name: '不思議ジャム',
     needs: { strawberry: 1, mushroom: 1 },
-    line: 'きらきらした。創作したくなる顔になった。',
+    line: 'きらきら。相棒が瓶を振って、「これ創作？」と本気で聞いた。',
   },
   {
     id: 'soup',
     name: 'トマトスープ',
     needs: { tomato: 2 },
-    line: 'ほっとした顔になった。',
+    line: 'ほっとした顔。鼻の穴までスープ。',
   },
   {
     id: 'shortcake',
     name: '小さなショートケーキ',
     needs: { strawberry: 2 },
-    line: '甘くて、相棒が跳ねた。',
+    line: '甘い。相棒が跳ねて、クリームが帽子になった。',
   },
   {
     id: 'grill',
     name: '焼きキノコ',
     needs: { mushroom: 2 },
-    line: 'いい匂い。甘えてきた。',
+    line: 'いい匂い。甘えてきて、キノコの片側をねだった。',
   },
 ];
 
@@ -57,7 +57,7 @@ export function applyCook(
   recipe: Recipe,
 ): { ok: true; inventory: Record<string, number> } | { ok: false; reason: string } {
   if (!canCook(inventory, recipe)) {
-    return { ok: false, reason: '材料が足りない。株は残っているので、また実る。' };
+    return { ok: false, reason: '材料が足りない。今は空手。株は残ってるので、また実らせて。' };
   }
   const next = { ...inventory };
   for (const [key, count] of Object.entries(recipe.needs)) {

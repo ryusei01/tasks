@@ -12,15 +12,15 @@ export function stageForRate(rate: number | null): PlantStage {
 export function stageCaption(stage: PlantStage): string {
   switch (stage) {
     case 'sprout':
-      return '今日の期限つきタスクはまだない。株は元気なまま待っている。';
+      return '今日の期限つきタスクはまだない。株は元気なまま、暇を隠さず立っている。';
     case 'curled':
-      return '葉が丸まり、うとうとしている。枯れてはいない。';
+      return '25%未満だと葉が丸まって寝たふり。枯れてはいない。ただのサボり。';
     case 'leaves':
-      return '葉が広がってきた。';
+      return '25%を超えると葉が広がる。寝ぐせを直して、起きてきた。';
     case 'bud':
-      return '葉が広がり、つぼみができる。';
+      return '50%を超えるとつぼみができる。息を止めて、開く気でいる。';
     case 'bloom':
-      return '花が開いている。';
+      return '75%を超えると花が開いて、自分で小さな王冠をかぶる。少し得意。';
   }
 }
 

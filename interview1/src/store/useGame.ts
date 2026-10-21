@@ -147,16 +147,16 @@ export const useGame = create<GameState>()(
       harvest: (kind, ripe, at) => {
         const key = dateKey(at);
         if (get().harvestedOn[kind] === key) {
-          const text = `今日の${PRODUCE_LABEL[kind]}はもう収穫した。株は残っている。`;
+          const text = `今日の${PRODUCE_LABEL[kind]}はもう収穫した。株は残ってる。もう一回は欲張り。`;
           set({ lastSpeech: say(text, at) });
           return text;
         }
         if (!ripe) {
-          const text = `${PRODUCE_LABEL[kind]}はまだ小さい。取り組みが重なると実る。株は元気だ。`;
+          const text = `${PRODUCE_LABEL[kind]}はまだ小さい。やった分だけ実る。株は元気なまま、実が遠慮してる。`;
           set({ lastSpeech: say(text, at) });
           return text;
         }
-        const text = `${PRODUCE_LABEL[kind]}を収穫した。株は残っている。`;
+        const text = `${PRODUCE_LABEL[kind]}を収穫した。株は残ってる。実だけが「行ってきます」。`;
         set((state) => ({
           inventory: { ...state.inventory, [kind]: (state.inventory[kind] ?? 0) + 1 },
           harvestedOn: { ...state.harvestedOn, [kind]: key },
@@ -185,7 +185,7 @@ export const useGame = create<GameState>()(
         if (!recipe) return '料理が見つからない。';
         const key = dateKey(at);
         if (get().meal?.date === key) {
-          const text = '今日はもう食べた。表情は変わったままだ。';
+          const text = '今日はもう食べた。お腹が「もういい」と言って、表情はそのまま。';
           set({ lastSpeech: say(text, at) });
           return text;
         }
@@ -211,23 +211,23 @@ export const useGame = create<GameState>()(
             item.moon === gene.moon,
         );
         if (exists) {
-          const text = 'この姿の標本はすでにある。親株はそのままだ。';
+          const text = 'この姿の標本はすでにある。親株はそのまま、ちょっと得意な顔。';
           set({ lastSpeech: say(text, at) });
           return text;
         }
         const copy: FlowerGene = { ...gene, id: uid(), name: gene.name };
-        const text = '標本にした。庭の花はそのまま残っている。';
+        const text = '標本にした。庭の花はそのまま残って、王冠も外さない。';
         set((state) => ({ nursery: [...state.nursery, copy], lastSpeech: say(text, at) }));
         return text;
       },
       synthesize: (parentA, parentB, at) => {
         if (parentA.id === parentB.id) {
-          const text = '別々の花を二株選んで。親は残したまま掛けられる。';
+          const text = '別々の花を二株選んで。同じ株同士は、鏡を見て終わる。';
           set({ lastSpeech: say(text, at) });
           return text;
         }
         const child = mixFlower(parentA, parentB, uid());
-        const text = `${child.name}が生まれた。親の花は残っている。`;
+        const text = `${child.name}が生まれた。親の花は残って、ちょっと驚いてる。`;
         set((state) => ({ nursery: [...state.nursery, child], lastSpeech: say(text, at) }));
         return text;
       },
@@ -240,10 +240,10 @@ export const useGame = create<GameState>()(
       finishMinigame: (id, at) => {
         const text =
           id === 'water'
-            ? '水をやった。葉が揺れた。'
+            ? '水をやった。葉がくすぐったそうに揺れた。'
             : id === 'harvest'
-              ? '実を拾った。株は残っている。'
-              : 'スライムがはずんだ。姿は枯れない。';
+              ? '実を拾った。株は残ってる。実は「捕まった」という顔。'
+              : 'スライムがはずんだ。姿は枯れない。床だけが疲れてる。';
         set((state) => ({
           playedMinigames: state.playedMinigames.includes(id) ? state.playedMinigames : [...state.playedMinigames, id],
           lastSpeech: say(text, at),

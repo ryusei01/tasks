@@ -7,6 +7,9 @@ export function IslandSvg({ world, width = 360 }: { world: WorldView; width?: nu
     <Svg width={width} height={height} viewBox="0 0 360 224">
       <Rect width="360" height="224" rx="24" fill="#d7ebe3" />
       <Circle cx="300" cy="42" r="16" fill="#f6e7b2" />
+      <Circle cx="295" cy="40" r="1.5" fill="#243027" />
+      <Circle cx="306" cy="40" r="1.5" fill="#243027" />
+      <Path d="M294 46 q6 5 12 0" stroke="#243027" strokeWidth="1.2" fill="none" />
       <Ellipse cx="180" cy="168" rx="150" ry="42" fill="#8fbf78" />
       <Ellipse cx="180" cy="160" rx="132" ry="34" fill="#c6ad72" />
       {world.river > 0 ? (

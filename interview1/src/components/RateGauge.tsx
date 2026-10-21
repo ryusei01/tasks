@@ -21,7 +21,7 @@ export function RateGauge({ rate }: { rate: number | null }) {
           </Text>
         ))}
       </View>
-      <Text style={styles.note}>休んでも、枯れない。</Text>
+      <Text style={styles.note}>休んでも、枯れない。葉が自分で布団になる。</Text>
     </View>
   );
 }

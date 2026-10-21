@@ -11,7 +11,7 @@ import { plantView } from '../../src/domain/plant';
 import { produceViews } from '../../src/domain/produce';
 import { seasonOf } from '../../src/domain/season';
 import { computeSignals } from '../../src/domain/signals';
-import { slimeFromSignals } from '../../src/domain/slime';
+import { slimeFromSignals, slimeGrowthLine, slimeName } from '../../src/domain/slime';
 import { canSpecimen, livingGene } from '../../src/domain/synthesis';
 import { completionCount, latestDifficulty } from '../../src/domain/tasks';
 import { dateKey } from '../../src/domain/time';
@@ -88,9 +88,12 @@ export default function GardenScreen() {
           <CompanionSprite action={action} width={130} />
           <SlimeSprite genes={genes} width={120} />
         </View>
-        <Text style={screen.body}>相棒の性格: {person.label}</Text>
+        <Text style={screen.body}>
+          {slimeName(genes)}。相棒の役: {person.label}
+        </Text>
+        <Text style={screen.muted}>{slimeGrowthLine(signals)}</Text>
         <Text style={screen.muted}>
-          まじめ {person.earnest}　げんき {person.lively}　おっとり {person.gentle}　こだわり {person.particular}　甘え {person.clingy}
+          期限マニア {person.earnest}　跳ね担当 {person.lively}　寝落ち係 {person.gentle}　味見係 {person.particular}　くっつき虫 {person.clingy}
         </Text>
         <View style={screen.row}>
           {produce.map((item) => (
@@ -116,7 +119,7 @@ export default function GardenScreen() {
           />
         </View>
         {!canSpecimen(realPlant) ? (
-          <Text style={screen.muted}>花が開くか、連続で増えると標本にできる。今は株が育っている途中。</Text>
+          <Text style={screen.muted}>花が開くか、連続で増えると標本にできる。今はまだ、調子に乗る前。</Text>
         ) : null}
         <Text style={screen.h2}>ミニゲーム</Text>
         <Text style={screen.sub}>やらなくても庭は進む。遊んだあとも、株は残る。</Text>

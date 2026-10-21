@@ -1,4 +1,4 @@
-import Svg, { Circle, Ellipse, G, Rect, Text as SvgText } from 'react-native-svg';
+import Svg, { Circle, Ellipse, G, Path, Rect, Text as SvgText } from 'react-native-svg';
 import type { PlantView } from '../../domain/types';
 
 export function FlowerSprite({ plant, width = 200 }: { plant: PlantView; width?: number }) {
@@ -54,7 +54,16 @@ export function FlowerSprite({ plant, width = 200 }: { plant: PlantView; width?:
         <Ellipse cx="100" cy="104" rx="14" ry="18" fill={plant.hue} />
       )}
       <Circle cx="100" cy="96" r={plant.stage === 'bloom' ? 8 : 5} fill="#f7f1dc" />
-      {plant.fruit ? <Circle cx="132" cy="132" r="9" fill="#e07a4a" /> : null}
+      <FlowerFace plant={plant} />
+      {plant.stage === 'bloom' ? <Path d="M90 68 l5 10 h-10 z M100 62 l5 12 h-10 z M110 68 l5 10 h-10 z" fill="#e6c15a" /> : null}
+      {plant.fruit ? (
+        <>
+          <Circle cx="132" cy="132" r="9" fill="#e07a4a" />
+          <Circle cx="129" cy="130" r="1.1" fill="#243027" />
+          <Circle cx="135" cy="130" r="1.1" fill="#243027" />
+          <Path d="M129 135 q3 3 6 0" stroke="#243027" strokeWidth="1" fill="none" />
+        </>
+      ) : null}
       {plant.sleepy ? (
         <SvgText x="132" y="78" fill="#5c6b5e" fontSize="14">
           z z
@@ -70,5 +79,44 @@ export function FlowerSprite({ plant, width = 200 }: { plant: PlantView; width?:
         );
       })}
     </Svg>
+  );
+}
+
+function FlowerFace({ plant }: { plant: PlantView }) {
+  if (plant.sleepy || plant.curled || plant.stage === 'sprout') {
+    return (
+      <>
+        <Path d="M92 94 q5 4 8 0" stroke="#243027" strokeWidth="1.4" fill="none" />
+        <Path d="M104 94 q5 4 8 0" stroke="#243027" strokeWidth="1.4" fill="none" />
+        <Ellipse cx="114" cy="102" rx="2.4" ry="4" fill="#9fd4ea" />
+      </>
+    );
+  }
+  if (plant.stage === 'bud') {
+    return (
+      <>
+        <Circle cx="94" cy="94" r="1.6" fill="#243027" />
+        <Circle cx="106" cy="94" r="1.6" fill="#243027" />
+        <Ellipse cx="100" cy="102" rx="2.2" ry="3" fill="#243027" />
+        <Circle cx="90" cy="98" r="2.4" fill="#f0b0a8" opacity={0.8} />
+        <Circle cx="110" cy="98" r="2.4" fill="#f0b0a8" opacity={0.8} />
+      </>
+    );
+  }
+  if (plant.stage === 'bloom') {
+    return (
+      <>
+        <Path d="M90 92 q4 -4 8 0" stroke="#243027" strokeWidth="1.5" fill="none" />
+        <Path d="M104 92 q4 -4 8 0" stroke="#243027" strokeWidth="1.5" fill="none" />
+        <Path d="M92 100 q8 7 16 0" stroke="#243027" strokeWidth="1.6" fill="none" />
+      </>
+    );
+  }
+  return (
+    <>
+      <Circle cx="94" cy="94" r="1.5" fill="#243027" />
+      <Circle cx="106" cy="94" r="1.5" fill="#243027" />
+      <Path d="M94 101 q6 4 12 0" stroke="#243027" strokeWidth="1.4" fill="none" />
+    </>
   );
 }
